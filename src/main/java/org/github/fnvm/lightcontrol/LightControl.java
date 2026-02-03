@@ -1,10 +1,13 @@
 package org.github.fnvm.lightcontrol;
 
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.stage.Screen;
 import javafx.stage.Stage;
 import org.github.fnvm.lightcontrol.view.LightControlController;
 import org.github.fnvm.lightcontrol.viewmodel.LightControlViewModel;
@@ -35,6 +38,8 @@ public class LightControl extends Application {
       );
       primaryStage.setScene(scene);
       primaryStage.show();
+
+      Platform.runLater(() -> primaryStage.centerOnScreen());
     } catch (IOException e) {
       logger.log(Level.ERROR, "FXML loading error: {0}", e.getMessage());
       e.printStackTrace();
