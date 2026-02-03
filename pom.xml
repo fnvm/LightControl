@@ -15,15 +15,19 @@
     </properties>
 
     <dependencies>
+        <!-- Source: https://mvnrepository.com/artifact/org.openjfx/javafx-controls -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>21.0.6</version>
+            <version>25.0.2</version>
+            <scope>compile</scope>
         </dependency>
+        <!-- Source: https://mvnrepository.com/artifact/org.openjfx/javafx-fxml -->
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-fxml</artifactId>
-            <version>21.0.6</version>
+            <version>25.0.2</version>
+            <scope>compile</scope>
         </dependency>
 
         <dependency>
@@ -60,7 +64,7 @@
                         <!-- Default configuration for running with: mvn clean javafx:run -->
                         <id>default-cli</id>
                         <configuration>
-                            <mainClass>org.github.fnvm.lightcontrol/org.github.fnvm.lightcontrol.LightControl
+                            <mainClass>org.github.fnvm.lightcontrol/org.github.fnvm.lightcontrol.Launcher
                             </mainClass>
                             <launcher>app</launcher>
                             <jlinkZipName>app</jlinkZipName>
@@ -70,8 +74,43 @@
                             <noHeaderFiles>true</noHeaderFiles>
                         </configuration>
                     </execution>
+
+                    <execution>
+                        <id>create-image</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>jlink</goal>
+                        </goals>
+                        <configuration>
+                            <launcher>LightControl</launcher>
+                            <mainClass>org.github.fnvm.lightcontrol.Launcher</mainClass>
+                        </configuration>
+                    </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.6.1</version>
+                <configuration>
+                    <transformers>
+                        <transformer
+                                implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+                            <mainClass>org.github.fnvm.lightcontrol.Launcher</mainClass>
+                        </transformer>
+                    </transformers>
+                </configuration>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+
         </plugins>
     </build>
 </project>
