@@ -4,6 +4,7 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import org.github.fnvm.lightcontrol.view.LightControlController;
 import org.github.fnvm.lightcontrol.viewmodel.LightControlViewModel;
@@ -29,10 +30,13 @@ public class LightControl extends Application {
       scene.getStylesheets().add(getClass().getResource("/MainView.css").toExternalForm());
 
       primaryStage.setTitle("Light Control");
+      primaryStage.getIcons().add(
+              new Image(getClass().getResourceAsStream("/icon.png"))
+      );
       primaryStage.setScene(scene);
       primaryStage.show();
     } catch (IOException e) {
-      logger.log(Level.ERROR, "Ошибка загрузки FXML: {0}", e.getMessage());
+      logger.log(Level.ERROR, "FXML loading error: {0}", e.getMessage());
       e.printStackTrace();
       System.exit(1);
     }
