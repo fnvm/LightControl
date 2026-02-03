@@ -74,18 +74,6 @@
                             <noHeaderFiles>true</noHeaderFiles>
                         </configuration>
                     </execution>
-
-                    <execution>
-                        <id>create-image</id>
-                        <phase>package</phase>
-                        <goals>
-                            <goal>jlink</goal>
-                        </goals>
-                        <configuration>
-                            <launcher>LightControl</launcher>
-                            <mainClass>org.github.fnvm.lightcontrol.Launcher</mainClass>
-                        </configuration>
-                    </execution>
                 </executions>
             </plugin>
 
