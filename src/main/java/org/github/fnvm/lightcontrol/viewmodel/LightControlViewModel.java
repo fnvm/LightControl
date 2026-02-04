@@ -42,7 +42,7 @@ public class LightControlViewModel {
     }
   }
 
-    public double normalize(double value) {
+  public double normalize(double value) {
     return clamp(truncate(value));
   }
 
