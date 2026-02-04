@@ -5,6 +5,7 @@ import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.util.Duration;
+import org.github.fnvm.lightcontrol.model.DisplayService;
 import org.github.fnvm.lightcontrol.model.Screen;
 import org.github.fnvm.lightcontrol.model.XrandrService;
 import org.github.fnvm.lightcontrol.view.LightControlUiState;
@@ -26,18 +27,22 @@ public class LightControlViewModel {
   private final StringProperty errorMessage = new SimpleStringProperty("");
   private final ObservableList<Screen> connectedScreens = FXCollections.observableArrayList();
 
+  private DisplayService displayService;
+
   public LightControlViewModel() {
     try {
-      connectedScreens.setAll(XrandrService.getOutputs());
-      currentScreen.set(XrandrService.getCurrentScreen());
-      brightness.set(XrandrService.getCurrentBrightness());
+      displayService = new XrandrService();
+
+      connectedScreens.setAll(displayService.getConnectedScreens());
+      currentScreen.set(displayService.getCurrentScreen());
+      brightness.set(displayService.getCurrentBrightness());
     } catch (IOException e) {
       logger.log(Level.ERROR, () -> "Error while accessing xrandr: " + e.getMessage());
       setErrorMessage("Error while accessing xrandr");
     }
   }
 
-  public double normalize(double value) {
+    public double normalize(double value) {
     return clamp(truncate(value));
   }
 
@@ -61,7 +66,7 @@ public class LightControlViewModel {
     String gamma = "1:1:1";
     if (uiNightMode) gamma = "1:0.85:0.7";
     try {
-      XrandrService.setBrightness(uiScreen, uiBrightness, gamma);
+      displayService.setBrightness(uiScreen, uiBrightness, gamma);
     } catch (IOException e) {
       logger.log(Level.ERROR, () -> "Error applying xrandr settings: " + e.getMessage());
       setErrorMessage("Error applying xrandr settings");
@@ -97,10 +102,10 @@ public class LightControlViewModel {
   }
 
   private void setErrorMessage(String msg) {
-      errorMessage.set(msg);
+    errorMessage.set(msg);
 
-      PauseTransition delay = new PauseTransition(Duration.seconds(3.0));
-      delay.setOnFinished(_ -> errorMessage.set(""));
-      delay.play();
+    PauseTransition delay = new PauseTransition(Duration.seconds(3.0));
+    delay.setOnFinished(_ -> errorMessage.set(""));
+    delay.play();
   }
 }

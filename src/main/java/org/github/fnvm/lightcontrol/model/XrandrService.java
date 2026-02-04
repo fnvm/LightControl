@@ -6,19 +6,21 @@ import java.io.InputStreamReader;
 import java.util.ArrayList;
 import java.util.List;
 
-public class XrandrService {
-  private static double currentBrightness = 1.0;
-  private static String currentScreen = "Not found";
+public class XrandrService implements DisplayService {
+  private double currentBrightness = 1.0;
+  private String currentScreen = "Not found";
 
-  public static double getCurrentBrightness() {
+  public XrandrService() {}
+
+  public double getCurrentBrightness() {
     return currentBrightness;
   }
 
-  public static String getCurrentScreen() {
+  public String getCurrentScreen() {
     return currentScreen;
   }
 
-  public static boolean setBrightness(String output, double brightnessValue, String gamma)
+  public void setBrightness(String output, double brightnessValue, String gamma)
       throws IOException {
     var processBuilder = new ProcessBuilder();
     processBuilder.command(
@@ -29,13 +31,12 @@ public class XrandrService {
         Double.toString(brightnessValue),
         "--gamma",
         gamma);
-    var process = processBuilder.start();
-    // TODO обработка ошибки
+    processBuilder.start();
     currentBrightness = brightnessValue;
-    return true;
   }
 
-  public static List<Screen> getOutputs() throws IOException {
+  @Override
+  public List<Screen> getConnectedScreens() throws IOException {
     var processBuilder = new ProcessBuilder();
     processBuilder.command("xrandr", "--listactivemonitors");
 
