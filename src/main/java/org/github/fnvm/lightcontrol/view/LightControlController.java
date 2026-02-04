@@ -12,6 +12,7 @@ public class LightControlController {
   @FXML private MenuButton monitorMenuButton;
   @FXML private CheckBox nightModeCheckBox;
   @FXML private Button applyButton;
+  @FXML private Label errorLabel;
 
   private LightControlViewModel viewModel;
   private LightControlUiState uiState;
@@ -77,6 +78,8 @@ public class LightControlController {
           parseField();
           viewModel.apply(uiState);
         });
+
+    errorLabel.textProperty().bind(viewModel.errorMessageProperty());
   }
 
   private void parseField() {

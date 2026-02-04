@@ -1,8 +1,10 @@
 package org.github.fnvm.lightcontrol.viewmodel;
 
+import javafx.animation.PauseTransition;
 import javafx.beans.property.*;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.util.Duration;
 import org.github.fnvm.lightcontrol.model.Screen;
 import org.github.fnvm.lightcontrol.model.XrandrService;
 import org.github.fnvm.lightcontrol.view.LightControlUiState;
@@ -10,10 +12,10 @@ import org.github.fnvm.lightcontrol.view.LightControlUiState;
 import java.io.IOException;
 import java.lang.System.Logger;
 import java.lang.System.Logger.Level;
-import java.util.List;
 import java.util.Locale;
 
 public class LightControlViewModel {
+  private static final Logger logger = System.getLogger(LightControlViewModel.class.getName());
 
   private static final double MIN_VALUE = 0.1;
   private static final double MAX_VALUE = 1.5;
@@ -21,6 +23,7 @@ public class LightControlViewModel {
   private final DoubleProperty brightness = new SimpleDoubleProperty();
   private final BooleanProperty nightMode = new SimpleBooleanProperty();
   private final StringProperty currentScreen = new SimpleStringProperty();
+  private final StringProperty errorMessage = new SimpleStringProperty("");
   private final ObservableList<Screen> connectedScreens = FXCollections.observableArrayList();
 
   public LightControlViewModel() {
@@ -29,7 +32,8 @@ public class LightControlViewModel {
       currentScreen.set(XrandrService.getCurrentScreen());
       brightness.set(XrandrService.getCurrentBrightness());
     } catch (IOException e) {
-
+      logger.log(Level.ERROR, () -> "Error while accessing xrandr: " + e.getMessage());
+      setErrorMessage("Error while accessing xrandr");
     }
   }
 
@@ -59,7 +63,8 @@ public class LightControlViewModel {
     try {
       XrandrService.setBrightness(uiScreen, uiBrightness, gamma);
     } catch (IOException e) {
-      // TODO логгирование + сообщения об ошибках
+      logger.log(Level.ERROR, () -> "Error applying xrandr settings: " + e.getMessage());
+      setErrorMessage("Error applying xrandr settings");
     }
   }
 
@@ -85,5 +90,17 @@ public class LightControlViewModel {
 
   public ObservableList<Screen> connectedScreensProperty() {
     return connectedScreens;
+  }
+
+  public StringProperty errorMessageProperty() {
+    return errorMessage;
+  }
+
+  private void setErrorMessage(String msg) {
+      errorMessage.set(msg);
+
+      PauseTransition delay = new PauseTransition(Duration.seconds(3.0));
+      delay.setOnFinished(_ -> errorMessage.set(""));
+      delay.play();
   }
 }
