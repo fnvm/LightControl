@@ -1,0 +1,240 @@
+/* Root Container */
+.root {
+    -fx-background-color: #2b2b2b;
+    -fx-font-family: "Segoe UI", "Roboto", "Arial", sans-serif;
+    -fx-font-size: 14px;
+}
+
+/* Main VBox Container */
+.main-container {
+    -fx-background-color: #2b2b2b;
+}
+
+/* Labels */
+.label {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 14px;
+    -fx-font-weight: normal;
+}
+
+/* Label Header HBox */
+.label-header-hbox {
+    -fx-background-color: #353535;
+    -fx-background-radius: 6px;
+    -fx-padding: 10 12 10 12;
+}
+
+/* Slider Name Label (left side) */
+.slider-name-label {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 15px;
+    -fx-font-weight: 500;
+}
+
+/* Value Label (right side) - legacy */
+.value-label {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+    -fx-background-color: #3a3a3a;
+    -fx-background-radius: 4px;
+    -fx-padding: 4 10 4 10;
+}
+
+/* Value TextField (editable input) */
+.value-text-field {
+    -fx-background-color: #3a3a3a;
+    -fx-background-radius: 4px;
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+    -fx-padding: 4 10 4 10;
+    -fx-border-color: #4a4a4a;
+    -fx-border-radius: 4px;
+    -fx-border-width: 1px;
+    -fx-pref-width: 70;
+}
+
+.value-text-field:focused {
+    -fx-border-color: #803C3C;
+    -fx-border-width: 2px;
+    -fx-background-color: #404040;
+}
+
+.value-text-field:hover {
+    -fx-border-color: #5a5a5a;
+}
+
+/* Slider Styling */
+.slider {
+    -fx-pref-height: 40px;
+}
+
+.slider .track {
+    -fx-background-color: #3a3a3a;
+    -fx-background-radius: 3px;
+    -fx-pref-height: 6px;
+}
+
+.slider .thumb {
+    -fx-background-color: #803C3C;
+    -fx-background-radius: 10px;
+    -fx-pref-width: 20px;
+    -fx-pref-height: 20px;
+    -fx-cursor: hand;
+}
+
+.slider .thumb:hover {
+    -fx-background-color: #8ab0d0;
+}
+
+.slider .thumb:pressed {
+    -fx-background-color: #6a92b5;
+}
+
+/* Slider Value Labels */
+.slider .axis {
+    -fx-tick-label-fill: #909090;
+    -fx-font-size: 11px;
+}
+
+.slider .axis-tick-mark {
+    -fx-stroke: #4a4a4a;
+}
+
+/* MenuButton (Screens) */
+.menu-button {
+    -fx-background-color: #3a3a3a;
+    -fx-background-radius: 5px;
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 13px;
+    -fx-padding: 8 16 8 16;
+    -fx-cursor: hand;
+}
+
+.menu-button:hover {
+    -fx-background-color: #454545;
+}
+
+.menu-button:pressed {
+    -fx-background-color: #323232;
+}
+
+.menu-button .label {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-weight: normal;
+    -fx-padding: 0;
+}
+
+.menu-button .arrow {
+    -fx-background-color: #e0e0e0;
+}
+
+/* Context Menu for MenuButton */
+.context-menu {
+    -fx-background-color: #2b2b2b;
+    -fx-background-radius: 6px;
+    -fx-border-color: #4a4a4a;
+    -fx-border-width: 1px;
+    -fx-border-radius: 6px;
+}
+
+.menu-item {
+    -fx-background-color: transparent;
+    -fx-padding: 6 12 6 12;
+}
+
+.menu-item:hover {
+    -fx-background-color: #3a3a3a;
+}
+
+.menu-item .label {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-weight: normal;
+    -fx-padding: 0;
+}
+
+/* CheckBox (Night Mode) */
+.check-box {
+    -fx-text-fill: #e0e0e0;
+    -fx-font-size: 13px;
+    -fx-cursor: hand;
+}
+
+.check-box .box {
+    -fx-background-color: #3a3a3a;
+    -fx-background-radius: 3px;
+    -fx-border-color: #5a5a5a;
+    -fx-border-width: 1.5px;
+    -fx-border-radius: 3px;
+    -fx-pref-width: 18px;
+    -fx-pref-height: 18px;
+}
+
+.check-box:hover .box {
+    -fx-background-color: #454545;
+    -fx-border-color: #6a6a6a;
+}
+
+.check-box:selected .box {
+    -fx-background-color: #803C3C;
+    -fx-border-color: #803C3C;
+}
+
+.check-box .text {
+    -fx-fill: #e0e0e0;
+    -fx-font-weight: normal;
+}
+
+/* Button (Apply) */
+.button {
+    -fx-background-color: #612E2E;
+    -fx-background-radius: 6px;
+    -fx-text-fill: white;
+    -fx-font-size: 14px;
+    -fx-font-weight: 500;
+    -fx-padding: 10 24 10 24;
+    -fx-cursor: hand;
+}
+
+.button:hover {
+    -fx-background-color: #8ab0d0;
+}
+
+.button:pressed {
+    -fx-background-color: #6a92b5;
+}
+
+.button:disabled {
+    -fx-background-color: #4a4a4a;
+    -fx-text-fill: #808080;
+    -fx-opacity: 0.6;
+    -fx-cursor: default;
+}
+
+/* HBox Container */
+.controls-hbox {
+    -fx-background-color: #353535;
+    -fx-background-radius: 6px;
+    -fx-padding: 10;
+}
+
+/* Region (Spacer) */
+.spacer-region {
+    -fx-min-height: 10px;
+}
+
+/* Scrollbar styling (if needed) */
+.scroll-bar {
+    -fx-background-color: transparent;
+}
+
+.scroll-bar .thumb {
+    -fx-background-color: #803C3C;
+    -fx-background-radius: 4px;
+}
+
+.scroll-bar .track {
+    -fx-background-color: #3a3a3a;
+    -fx-background-radius: 4px;
+}
