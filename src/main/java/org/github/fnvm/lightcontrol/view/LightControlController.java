@@ -15,24 +15,18 @@ public class LightControlController {
   @FXML private Label errorLabel;
 
   private LightControlViewModel viewModel;
-  private LightControlUiState uiState;
 
   public void setViewModel(LightControlViewModel viewModel) {
     this.viewModel = viewModel;
-    this.uiState = new LightControlUiState();
     initUi();
     setupListeners();
   }
 
   private void initUi() {
-    uiState.setBrightness(viewModel.getBrightness());
-    uiState.setNightMode(viewModel.isNightMode());
-    uiState.setScreen(viewModel.getCurrentScreen());
-
-    brightnessSlider.setValue(uiState.getBrightness());
-    valueTextField.setText(viewModel.format(uiState.getBrightness()));
-    nightModeCheckBox.setSelected(uiState.isNightMode());
-    monitorMenuButton.setText(uiState.getScreen());
+    brightnessSlider.setValue(viewModel.getBrightness());
+    valueTextField.setText(viewModel.format(viewModel.getBrightness()));
+    nightModeCheckBox.setSelected(viewModel.isNightMode());
+    monitorMenuButton.setText(viewModel.getCurrentScreen());
 
     monitorMenuButton.getItems().clear();
     viewModel
@@ -42,7 +36,7 @@ public class LightControlController {
               MenuItem item = new MenuItem(screen.outputName());
               item.setOnAction(
                   _ -> {
-                    uiState.setScreen(screen.outputName());
+                    viewModel.setCurrentScreen(screen.outputName());
                     monitorMenuButton.setText(screen.outputName());
                   });
               monitorMenuButton.getItems().add(item);
@@ -59,7 +53,7 @@ public class LightControlController {
         .addListener(
             (_, _, val) -> {
               double normalized = viewModel.normalize(val.doubleValue());
-              uiState.setBrightness(normalized);
+              viewModel.setBrightness(normalized);
               valueTextField.setText(viewModel.format(normalized));
             });
 
@@ -71,12 +65,12 @@ public class LightControlController {
               if (!now) parseField();
             });
 
-    nightModeCheckBox.selectedProperty().addListener((_, _, val) -> uiState.setNightMode(val));
+    nightModeCheckBox.selectedProperty().addListener((_, _, val) -> viewModel.setNightMode(val));
 
     applyButton.setOnAction(
         _ -> {
           parseField();
-          viewModel.apply(uiState);
+          viewModel.apply();
         });
 
     errorLabel.textProperty().bind(viewModel.errorMessageProperty());
@@ -85,11 +79,11 @@ public class LightControlController {
   private void parseField() {
     try {
       double val = viewModel.parse(valueTextField.getText());
-      uiState.setBrightness(val);
+      viewModel.setBrightness(val);
       brightnessSlider.setValue(val);
       valueTextField.setText(viewModel.format(val));
-    } catch (Exception ex) {
-      valueTextField.setText(viewModel.format(uiState.getBrightness()));
+    } catch (Exception _) {
+      valueTextField.setText(viewModel.format(viewModel.getBrightness()));
     }
   }
 

@@ -8,7 +8,6 @@ import javafx.util.Duration;
 import org.github.fnvm.lightcontrol.model.DisplayService;
 import org.github.fnvm.lightcontrol.model.Screen;
 import org.github.fnvm.lightcontrol.model.XrandrService;
-import org.github.fnvm.lightcontrol.view.LightControlUiState;
 
 import java.io.IOException;
 import java.lang.System.Logger;
@@ -23,7 +22,7 @@ public class LightControlViewModel {
 
   private final DoubleProperty brightness = new SimpleDoubleProperty();
   private final BooleanProperty nightMode = new SimpleBooleanProperty();
-  private final StringProperty currentScreen = new SimpleStringProperty();
+  private final StringProperty currentScreen = new SimpleStringProperty("");
   private final StringProperty errorMessage = new SimpleStringProperty("");
   private final ObservableList<Screen> connectedScreens = FXCollections.observableArrayList();
 
@@ -55,18 +54,11 @@ public class LightControlViewModel {
     return String.format(Locale.US, "%.2f", value);
   }
 
-  public void apply(LightControlUiState state) {
-    double uiBrightness = state.getBrightness();
-    boolean uiNightMode = state.isNightMode();
-    String uiScreen = state.getScreen();
-    brightness.set(uiBrightness);
-    nightMode.set(uiNightMode);
-    currentScreen.set(uiScreen);
-
+  public void apply() {
     String gamma = "1:1:1";
-    if (uiNightMode) gamma = "1:0.85:0.7";
+    if (nightMode.get()) gamma = "1:0.85:0.7";
     try {
-      displayService.setBrightness(uiScreen, uiBrightness, gamma);
+      displayService.setBrightness(currentScreen.get(), brightness.get(), gamma);
     } catch (IOException e) {
       logger.log(Level.ERROR, () -> "Error applying xrandr settings: " + e.getMessage());
       setErrorMessage("Error applying xrandr settings");
@@ -85,12 +77,24 @@ public class LightControlViewModel {
     return brightness.get();
   }
 
+  public void setBrightness(double brightness) {
+    this.brightness.set(brightness);
+  }
+
   public String getCurrentScreen() {
     return currentScreen.get();
   }
 
+  public void setCurrentScreen(String screen) {
+    currentScreen.set(screen);
+  }
+
   public boolean isNightMode() {
     return nightMode.get();
+  }
+
+  public void setNightMode(boolean nightMode) {
+    this.nightMode.set(nightMode);
   }
 
   public ObservableList<Screen> connectedScreensProperty() {
