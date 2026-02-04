@@ -20,7 +20,7 @@ public class LightControl extends Application {
   @Override
   public void start(Stage primaryStage) {
     try {
-      FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainView.fxml"));
+      FXMLLoader loader = new FXMLLoader(getClass().getResource("/res/MainView.fxml"));
       Parent root = loader.load();
       LightControlController controller = loader.getController();
 
@@ -28,11 +28,11 @@ public class LightControl extends Application {
       controller.setViewModel(viewModel);
 
       Scene scene = new Scene(root);
-      scene.getStylesheets().add(getClass().getResource("/MainView.css").toExternalForm());
+      scene.getStylesheets().add(getClass().getResource("/res/MainView.css").toExternalForm());
 
       primaryStage.setTitle("Light Control");
       primaryStage.getIcons().add(
-              new Image(getClass().getResourceAsStream("/icon.png"))
+              new Image(getClass().getResourceAsStream("/res/icon.png"))
       );
       primaryStage.setScene(scene);
       primaryStage.show();
