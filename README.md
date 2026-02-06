@@ -4,7 +4,7 @@ An application that allows you to adjust the screen brightness on a Linux system
 
 ![app](/demo.png)
 
-**Requirements:** Java 25+
+**Requirements:** Java 25+, xrandr.
 
 **Build:**
 ```bash
