@@ -14,7 +14,7 @@
 
 <VBox prefHeight="200.0" prefWidth="400.0" spacing="5.0" styleClass="MainView-container" stylesheets="@MainView.css" xmlns="http://javafx.com/javafx/25" xmlns:fx="http://javafx.com/fxml/1" fx:controller="org.github.fnvm.lightcontrol.view.LightControlController">
    <children>
-      <HBox alignment="CENTER_LEFT" prefHeight="100.0" prefWidth="200.0" styleClass="label-header-hbox" stylesheets="@MainView.css" VBox.vgrow="ALWAYS">
+      <HBox alignment="CENTER_LEFT" maxHeight="60.0" prefHeight="60.0" prefWidth="200.0" styleClass="label-header-hbox" stylesheets="@MainView.css" VBox.vgrow="ALWAYS">
          <children>
             <Label fx:id="sliderNameLabel" styleClass="slider-name-label" stylesheets="@MainView.css" text="Brightness" />
             <Region prefHeight="200.0" HBox.hgrow="ALWAYS" />
@@ -22,7 +22,7 @@
          </children>
       </HBox>
       <Slider fx:id="brightnessSlider" max="1.5" min="0.1" prefHeight="16.0" showTickLabels="true" showTickMarks="true" value="1.0" />
-      <Region prefHeight="200.0" prefWidth="200.0" />
+      <Region prefHeight="0.0" prefWidth="200.0" VBox.vgrow="ALWAYS" />
       <Label fx:id="errorLabel" style="-fx-text-fill: RED;" textFill="WHITE" VBox.vgrow="ALWAYS">
          <font>
             <Font name="System Bold" size="13.0" />
@@ -30,7 +30,10 @@
       </Label>
       <HBox alignment="CENTER_LEFT" spacing="15.0">
          <children>
-            <MenuButton fx:id="monitorMenuButton" mnemonicParsing="false" text="Screens " />
+            <MenuButton fx:id="monitorMenuButton" mnemonicParsing="false" text="Screens ">
+               <HBox.margin>
+                  <Insets />
+               </HBox.margin></MenuButton>
             <CheckBox fx:id="nightModeCheckBox" mnemonicParsing="false" text="Night Mode" />
             <Region HBox.hgrow="ALWAYS" />
             <Button fx:id="applyButton" mnemonicParsing="false" text="Apply" />

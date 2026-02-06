@@ -108,9 +108,10 @@
     -fx-background-radius: 5px;
     -fx-text-fill: #e0e0e0;
     -fx-font-size: 13px;
-    -fx-padding: 8 16 8 16;
+    -fx-padding: 5 13 5 13;
     -fx-cursor: hand;
 }
+
 
 .menu-button:hover {
     -fx-background-color: #454545;
@@ -123,12 +124,9 @@
 .menu-button .label {
     -fx-text-fill: #e0e0e0;
     -fx-font-weight: normal;
-    -fx-padding: 0;
+    -fx-padding: 5;
 }
 
-.menu-button .arrow {
-    -fx-background-color: #e0e0e0;
-}
 
 /* Context Menu for MenuButton */
 .context-menu {
@@ -137,6 +135,10 @@
     -fx-border-color: #4a4a4a;
     -fx-border-width: 1px;
     -fx-border-radius: 6px;
+}
+
+.menu-button .arrow {
+    -fx-background-color: #e0e0e0;
 }
 
 .menu-item {
